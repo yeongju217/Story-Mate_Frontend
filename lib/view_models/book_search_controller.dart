@@ -1,52 +1,58 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:storymate/views/book_intro_page.dart';
+import 'package:storymate/models/book.dart';
+import 'package:storymate/view_models/home_controller.dart';
+import 'package:storymate/views/read/book_intro_page.dart';
 
 class BookSearchController extends GetxController {
-  // 뒤로 가기
+  final HomeController homeController =
+      Get.find<HomeController>(); // HomeController 인스턴스 가져오기
+  final TextEditingController searchController = TextEditingController();
+
+  var selectedCategory = '전체'.obs; // 선택된 검색 카테고리
+  var categories = ['전체', '서명', '태그']; // 검색 카테고리 목록
+  var keywords = ['동화', '교훈', '안데르센', '사랑', '모험', '전통'].obs; // 검색 추천 키워드
+
+  // 검색 결과 리스트 (Book 객체 저장)
+  var searchResults = RxList<Book>([]); // RxList<Book>을 명확하게 초기화
+
   void goBack() {
     Get.back();
   }
 
-  // 검색어 입력 controller
-  final TextEditingController searchController = TextEditingController();
-
-  var selectedCategory = '전체'.obs; // 선택된 카테고리
-  var categories = ['전체', '서명/저자', '키워드']; // 검색 카테고리
-  var keywords = ['동화', '모험', '판타지', '로맨스', '역사', '철학'].obs; // 키워드 예시
   void changeCategory(String category) {
     selectedCategory.value = category;
   }
 
-  // 검색 결과를 관리하는 상태 변수
-  RxList<Map<String, String>> searchResults = <Map<String, String>>[].obs;
-
-  // 추천 작품 (샘플 데이터)
-  final List<Map<String, String>> allBooks = [
-    {"title": "작품 제목 1", "tags": "#태그1 #태그2"},
-    {"title": "작품 제목 2", "tags": "#태그3 #태그4"},
-    {"title": "작품 제목 3", "tags": "#태그5 #태그6"},
-    {"title": "작품 제목 4", "tags": "#태그7 #태그8"},
-  ];
-
-  // 검색 기능
+  // 검색 기능 (제목 & 태그 포함)
   void searchBooks(String query) {
     if (query.isEmpty) {
-      // 검색어가 비어있으면 결과 초기화
       searchResults.clear();
-    } else {
-      // 검색어에 따라 결과 필터링
-      searchResults.value = allBooks
-          .where((book) =>
-              book["title"]!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      return;
     }
+
+    List<Book> results = homeController.books.where((book) {
+      bool matchesTitle =
+          book.title!.toLowerCase().contains(query.toLowerCase());
+      bool matchesTags = book.tags!
+          .any((tag) => tag.toLowerCase().contains(query.toLowerCase()));
+
+      // 검색 카테고리 선택에 따른 필터링
+      if (selectedCategory.value == '서명') {
+        return matchesTitle;
+      } else if (selectedCategory.value == '태그') {
+        return matchesTags;
+      }
+      return matchesTitle || matchesTags; // '전체' 카테고리
+    }).toList();
+
+    searchResults.assignAll(results);
   }
 
-  // 작품 소개 화면으로 이동
+  // 작품 소개 페이지로 이동
   void toIntroPage(String title) {
     Get.to(
-      BookIntroPage(),
+      () => BookIntroPage(),
       arguments: {
         'title': title,
       },

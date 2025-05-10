@@ -1,0 +1,2 @@
+/Users/jeonsiwon/Documents/GDG 2024-2025/SucceSS 연합 프로젝트/storymate/android/app/.cxx/RelWithDebInfo/51202n2q/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/jeonsiwon/Documents/GDG 2024-2025/SucceSS 연합 프로젝트/storymate/android/app/.cxx/RelWithDebInfo/51202n2q/arm64-v8a/CMakeFiles/rebuild_cache.dir

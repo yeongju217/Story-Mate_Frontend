@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/jeonsiwon/Documents/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/jeonsiwon/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/jeonsiwon/Documents/GDG 2024-2025/SucceSS 연합 프로젝트/storymate/android/app/.cxx/RelWithDebInfo/51202n2q/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/jeonsiwon/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/jeonsiwon/Documents/GDG 2024-2025/SucceSS 연합 프로젝트/storymate/android/app/.cxx/RelWithDebInfo/51202n2q/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

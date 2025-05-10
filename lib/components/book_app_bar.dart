@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:storymate/components/theme.dart';
 
 class BookAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -32,17 +33,17 @@ class BookAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20,
+          fontSize: 20.sp,
           fontFamily: 'Nanum',
           fontWeight: FontWeight.w600,
-          height: 1,
-          letterSpacing: -0.23,
+          height: 1.h,
+          letterSpacing: -0.23.w,
         ),
       ),
       actions: isActionVisible!
           ? [
               Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: EdgeInsets.only(right: 10.w),
                 child: GestureDetector(
                   onTap: onBookmarkTap,
                   child: Icon(
@@ -53,7 +54,7 @@ class BookAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: EdgeInsets.only(right: 10.w),
                 child: GestureDetector(
                   onTap: onMoreTap,
                   child: Icon(Icons.more_vert),
@@ -64,7 +65,7 @@ class BookAppBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.0),
         child: Container(
-          height: 0.5,
+          height: 0.5.h,
           color: Color(0xffa2a2a2),
         ),
       ),
@@ -73,5 +74,5 @@ class BookAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(56.0 + 1.0); // AppBar 높이 + Border
+      Size.fromHeight((56.0 + 1.0).h); // AppBar 높이 + Border
 }

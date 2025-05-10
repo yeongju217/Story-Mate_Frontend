@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -16,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       automaticallyImplyLeading: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -23,31 +25,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       backgroundColor: backgroundColor,
-      toolbarHeight: 50,
+      toolbarHeight: 50.h,
       title: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: EdgeInsets.only(bottom: 10.h),
         child: Text(
           title,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 30,
+            fontSize: 30.sp,
             fontFamily: 'Jua',
             fontWeight: FontWeight.w400,
-            height: 0.73,
+            height: 0.73.h,
           ),
         ),
       ),
       leading: leading, // 왼쪽 아이콘
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 15, bottom: 10),
+          padding: EdgeInsets.only(right: 15.w, bottom: 10.h),
           child: GestureDetector(
             onTap: () {
               Get.toNamed('/book_search'); // 작품 검색 화면으로 이동
             },
             child: Icon(
               Icons.search,
-              size: 30,
+              size: 30.w,
               color: Colors.white,
             ),
           ),
@@ -58,5 +60,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   // AppBar의 크기 지정
   @override
-  Size get preferredSize => const Size.fromHeight(50);
+  Size get preferredSize => Size.fromHeight(50.h);
 }

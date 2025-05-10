@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:storymate/components/theme.dart';
 
 class CustomAlertDialog extends StatelessWidget {
@@ -17,39 +18,39 @@ class CustomAlertDialog extends StatelessWidget {
         question,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20,
+          fontSize: 20.sp,
           fontFamily: 'Jua',
           fontWeight: FontWeight.w400,
-          height: 1.40,
-          letterSpacing: -0.23,
+          height: 1.40.h,
+          letterSpacing: -0.23.w,
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text(
+          child: Text(
             '아니오',
             style: TextStyle(
               color: Colors.grey,
-              fontSize: 17,
+              fontSize: 17.sp,
               fontFamily: 'Jua',
               fontWeight: FontWeight.w400,
-              height: 1.40,
-              letterSpacing: -0.23,
+              height: 1.40.h,
+              letterSpacing: -0.23.w,
             ),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text(
+          child: Text(
             '예',
             style: TextStyle(
               color: AppTheme.primaryColor,
-              fontSize: 17,
+              fontSize: 17.sp,
               fontFamily: 'Jua',
               fontWeight: FontWeight.w400,
-              height: 1.40,
-              letterSpacing: -0.23,
+              height: 1.40.h,
+              letterSpacing: -0.23.w,
             ),
           ),
         ),

@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/chat_controller.dart';
-import 'package:storymate/views/chat_bubble.dart';
+import '../controllers/chat_controller.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+  final ChatController chatController = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
-    final ChatController controller =
-        Get.put(ChatController()); // controller 연결
-
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("대화하기"),
-        backgroundColor: Color(0xFF9B9FD0), // AppBar 색상
+        title: Text('대화하기'),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          // 채팅 메시지 리스트
+          // 메시지 리스트
           Expanded(
-            child: Obx(() => ListView.builder(
-                  reverse: true,
-                  itemCount: controller.messages.length,
-                  itemBuilder: (context, index) {
-                    final message =
-                        controller.messages.reversed.toList()[index];
-                    return ChatBubble(message: message); // 메시지 UI
-                  },
-                )),
+            child: Obx(() {
+              return ListView.builder(
+                reverse: true,
+                itemCount: chatController.messages.length,
+                itemBuilder: (context, index) {
+                  final message = chatController.messages.reversed.toList()[index];
+                  return Align(
+                    alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: message.isUser ? Colors.blue : Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        message.content,
+                        style: TextStyle(color: message.isUser ? Colors.white : Colors.black),
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
           ),
           // 입력창
           Padding(
@@ -38,34 +47,19 @@ class ChatScreen extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Obx(
-                    () => TextField(
-                      onChanged: (value) =>
-                          controller.messageInput.value = value,
-                      decoration: InputDecoration(
-                        hintText: '메시지를 입력하세요',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Color(0xFF9B9FD0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color(0xFF9B9FD0), width: 2.0),
-                        ),
-                      ),
-                      controller: TextEditingController()
-                        ..text = controller.messageInput.value
-                        ..selection = TextSelection.fromPosition(
-                          TextPosition(
-                              offset: controller.messageInput.value.length),
-                        ),
+                  child: TextField(
+                    onChanged: (value) => chatController.messageInput.value = value,
+                    decoration: InputDecoration(
+                      hintText: '메시지를 입력하세요...',
+                      border: OutlineInputBorder(),
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send, color: Color(0xFF9B9FD0)),
-                  onPressed: controller.sendMessage,
+                  icon: Icon(Icons.send),
+                  onPressed: () {
+                    chatController.sendMessage();
+                  },
                 ),
               ],
             ),

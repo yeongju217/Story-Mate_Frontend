@@ -1,0 +1,2 @@
+C:/Users/minju/Story-Mate_Frontend/android/app/.cxx/Debug/2n1v6y31/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/minju/Story-Mate_Frontend/android/app/.cxx/Debug/2n1v6y31/armeabi-v7a/CMakeFiles/rebuild_cache.dir

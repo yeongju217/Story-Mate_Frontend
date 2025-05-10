@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:storymate/components/custom_app_bar.dart';
 import 'package:storymate/components/custom_card.dart';
@@ -12,27 +13,15 @@ class BookListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final BookListController controller = Get.put(BookListController());
 
-    // 카테고리 정보 받기
     final String category = Get.arguments ?? 'Unknown Category';
-
-    // 샘플 데이터
-    final List<Map<String, String>> items = List.generate(
-      10,
-      (index) => {
-        "title": "작품 제목 ${index + 1}",
-        "tags": "#Tag${index + 1} #Example",
-      },
-    );
 
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
       appBar: CustomAppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: EdgeInsets.only(bottom: 10.h),
           child: GestureDetector(
-            onTap: () {
-              controller.goBack();
-            },
+            onTap: controller.goBack,
             child: Icon(
               Icons.arrow_back_ios_new,
               color: Colors.white,
@@ -48,11 +37,11 @@ class BookListPage extends StatelessWidget {
           // 정렬 순서 드롭다운
           Obx(() {
             return Padding(
-              padding: const EdgeInsets.only(top: 19, left: 18),
+              padding: EdgeInsets.only(top: 19.h, left: 18.w),
               child: Container(
-                width: 130,
-                height: 40,
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                width: 130.w,
+                height: 40.h,
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -68,12 +57,12 @@ class BookListPage extends StatelessWidget {
                     dropdownColor: Colors.white,
                     style: TextStyle(
                       color: AppTheme.primaryColor,
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontFamily: 'Jua',
                       fontWeight: FontWeight.w400,
-                      height: 1.10,
+                      height: 1.10.h,
                     ),
-                    menuMaxHeight: 300, // 드롭다운 최대 높이
+                    menuMaxHeight: 300.h, // 드롭다운 최대 높이
                     borderRadius: BorderRadius.circular(20), // 드롭다운 모서리 둥글게 처리
                     items: controller.sortOptions.map((String value) {
                       final isSelected = value == controller.selectedSort.value;
@@ -85,7 +74,7 @@ class BookListPage extends StatelessWidget {
                             color: isSelected
                                 ? AppTheme.primaryColor
                                 : Colors.black, // 선택된 항목 텍스트 색상
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontFamily: 'Jua',
                             fontWeight: FontWeight.w600,
                           ),
@@ -105,29 +94,26 @@ class BookListPage extends StatelessWidget {
           // 책 리스트
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
               child: Obx(() {
                 return GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).size.width > 600
-                        ? 3
-                        : 2, // 화면 크기에 따라 열 개수 변경
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width > 600 ? 3 : 2,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 20,
                     childAspectRatio: 3 / 4,
                   ),
-                  itemCount: controller.filteredItems.length,
+                  itemCount: controller.filteredBooks.length,
                   itemBuilder: (context, index) {
-                    final item = controller.filteredItems[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomCard(
-                        title: item['title']!,
-                        tags: item['tags']!,
-                        onTap: () {
-                          controller.toIntroPage(item['title']!);
-                        },
-                      ),
+                    final book = controller.filteredBooks[index];
+                    return CustomCard(
+                      title: book.title!,
+                      tags: book.tags!,
+                      coverImage: book.coverImage!,
+                      onTap: () {
+                        controller.toIntroPage(book.title!);
+                      },
                     );
                   },
                 );

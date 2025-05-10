@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21"
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -16,3 +28,26 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+// def keystoreProperties = new Properties()
+//   def keystorePropertiesFile = rootProject.file('key.properties')
+//   if (keystorePropertiesFile.exists()) {
+//   	keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//   }
+
+// android {
+//    // 아래 signingConfigs, buildTypes 블럭으로 수정
+//    signingConfigs {
+//        release {
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
+//        }
+//    }
+//    buildTypes {
+//        release {
+//            signingConfig signingConfigs.release
+//        }
+//    }
+// }

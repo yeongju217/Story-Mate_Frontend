@@ -1,0 +1,2 @@
+C:/Users/minju/Story-Mate_Frontend/android/app/.cxx/Debug/2n1v6y31/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/minju/Story-Mate_Frontend/android/app/.cxx/Debug/2n1v6y31/x86_64/CMakeFiles/rebuild_cache.dir

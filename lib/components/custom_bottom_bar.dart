@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:storymate/components/theme.dart';
@@ -15,24 +16,24 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5),
+      padding: EdgeInsets.only(top: 5.h),
       child: BottomNavigationBar(
         backgroundColor: Colors.white,
         unselectedLabelStyle: TextStyle(
           color: Color(0xFF7C7C7C),
-          fontSize: 12,
+          fontSize: 12.sp,
           fontFamily: 'Jua',
           fontWeight: FontWeight.w400,
-          height: 1.67,
-          letterSpacing: -0.23,
+          height: 1.67.h,
+          letterSpacing: -0.23.w,
         ),
         selectedLabelStyle: TextStyle(
           color: AppTheme.primaryColor,
-          fontSize: 12,
+          fontSize: 12.sp,
           fontFamily: 'Jua',
           fontWeight: FontWeight.w400,
-          height: 1.67,
-          letterSpacing: -0.23,
+          height: 1.67.h,
+          letterSpacing: -0.23.w,
         ),
         selectedItemColor: AppTheme.primaryColor,
         unselectedItemColor: Colors.grey,
@@ -58,14 +59,15 @@ class CustomBottomBar extends StatelessWidget {
           switch (index) {
             case 0:
               // 대화하기 탭
-              Get.toNamed(AppRoutes.CHARACTER_SELECTION);
+              Get.offNamed(AppRoutes.CHARACTER_SELECTION);
               break;
             case 1:
               // 홈 탭
-              Get.toNamed('/');
+              Get.offNamed(AppRoutes.HOME);
               break;
             default:
               // 마이페이지 탭
+              Get.offNamed('/my_page');
               break;
           }
         },
